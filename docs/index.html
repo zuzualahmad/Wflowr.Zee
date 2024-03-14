@@ -289,7 +289,7 @@ $(document).ready(function () {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -300,8 +300,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -310,13 +310,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-02-27
+<strong>Last updated:</strong> 2024-03-14
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>Wflowr.Zee/</code> <span
@@ -339,33 +339,36 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzuzualahmadWflowrZeetree1de081e10a84e3b3d6f2de1815dbc9e62df7ec74targetblank1de081ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomzuzualahmadWflowrZeetreef8e5be59b178bea6a0e64dfe20a1f0d6270feb21targetblankf8e5be5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/zuzualahmad/Wflowr.Zee/tree/1de081e10a84e3b3d6f2de1815dbc9e62df7ec74" target="_blank">1de081e</a>
+<a href="https://github.com/zuzualahmad/Wflowr.Zee/tree/f8e5be59b178bea6a0e64dfe20a1f0d6270feb21" target="_blank">f8e5be5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomzuzualahmadWflowrZeetree1de081e10a84e3b3d6f2de1815dbc9e62df7ec74targetblank1de081ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomzuzualahmadWflowrZeetreef8e5be59b178bea6a0e64dfe20a1f0d6270feb21targetblankf8e5be5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -375,7 +378,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/zuzualahmad/Wflowr.Zee/tree/1de081e10a84e3b3d6f2de1815dbc9e62df7ec74" target="_blank">1de081e</a>.
+<a href="https://github.com/zuzualahmad/Wflowr.Zee/tree/f8e5be59b178bea6a0e64dfe20a1f0d6270feb21" target="_blank">f8e5be5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -392,6 +395,14 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  analysis/Images/
+    Untracked:  css/
+    Untracked:  style.css
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -436,6 +447,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/zuzualahmad/Wflowr.Zee/f8e5be59b178bea6a0e64dfe20a1f0d6270feb21/docs/index.html" target="_blank">f8e5be5</a>
+</td>
+<td>
+Zeinab Al Ahmad
+</td>
+<td>
+2024-02-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -511,8 +539,53 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>Welcome to my research website. Click on this <a
-href="first-analysis.html">link</a> to see my results.</p>
+<div class="float">
+<img src="Images/Logo.jpeg" alt="Villanova University" />
+<div class="figcaption">Villanova University</div>
+</div>
+<style>
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+  background-color: #f8f9fa;
+}
+
+.main-content {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 0.3rem;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+}
+
+h2, h3 {
+  color: #0056b3;
+}
+
+a, a:visited {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Additional styling can be added here */
+</style>
+<div id="welcome-to-my-research-website"
+class="section level2 main-content">
+<h2>Welcome to My Research Website</h2>
+<p>I’m thrilled to have you here! 🌟 This site is a canvas for my
+journey through the realms of data analysis and the discoveries within
+my research findings.</p>
+<div id="ready-to-dive-in" class="section level3">
+<h3>Ready to Dive In?</h3>
+<p><a href="first-analysis.html">Start exploring →</a></p>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

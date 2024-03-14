@@ -1,0 +1,50 @@
+/* General body styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Header styles */
+h1, h2, h3 {
+  color: #0056b3;
+}
+
+/* Link styling */
+a, a:visited {
+  color: #0056b3;
+  text-decoration: none; /* Removes underline from links */
+}
+
+a:hover, a:focus {
+  color: #004099;
+}
+
+/* Style for navigation menu (if applicable) */
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+/* Main content styling */
+.main-content {
+  padding: 20px;
+  background: white;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Add custom styling as needed */
