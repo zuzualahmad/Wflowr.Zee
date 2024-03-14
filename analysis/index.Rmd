@@ -4,11 +4,27 @@ site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
     toc: false
+    theme: darkly
 editor_options:
   chunk_output_type: console
 ---
+```{r echo= FALSE}
+# Load required packages
+library(grid)
 
-![Villanova University](images/Logo.jpeg)
+# Set the working directory to where your image is located
+setwd("C://Users//zalah//OneDrive//Documents//Wflowr.Zee//analysis//Images")
+
+library(jpeg)
+
+# Read the image file
+img <- readJPEG("Logo1.jpeg") # You can also use readJPEG() for JPEG files or readTIFF() for TIFF files
+
+# Display the image
+grid::grid.raster(img)
+```
+
+
 
 
 <style>
