@@ -10,6 +10,142 @@ editor_options:
 ## Introduction
 
 ```{r}
+#Libraries 
+library(readxl)
+library(tidyverse) 
+library(readxl) 
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(plotly)
 
 ```
+
+
+
+```{r}
+# Read Ligand data from CSV files
+Ligands <-read.csv("C:/Users/zalah/OneDrive/Documents/Wflowr.Zee/data/ligands.csv")
+```
+
+
+```{r}
+# Create a data frame that summarizes ligand names by type, along with the count
+ligands_summary <- Ligands %>%
+  group_by(Type) %>%
+  summarise(
+    Count = n(),  # Count the number of ligands per type
+    Names = paste(Name, collapse = "; ")  # Concatenate all ligand names for each type, separated by semicolon
+  ) %>%
+  ungroup()  # Make sure to ungroup the data frame for plotting
+
+# Create the interactive plot using plotly
+interactive_plot <- plot_ly(
+  data = ligands_summary,
+  x = ~Type,
+  y = ~Count,
+  type = 'bar',
+  text = ~Names,
+  hoverinfo = 'text',  # Display names on hover
+  marker = list(color = 'pink')
+)
+
+# Customize the layout
+interactive_plot <- interactive_plot %>%
+  layout(
+    title = "Ligands Classification by Type",
+    xaxis = list(title = "Type of Ligand"),
+    yaxis = list(title = "Count"),
+    hoverlabel = list(align = "left")  # Align hover labels to the left
+  )
+
+# Render the plot
+interactive_plot
+```
+
+```{r}
+# Assuming Approved is a factor or character indicating approval status
+Ligands$Approved <- as.factor(Ligands$Approved)
+
+
+```
+
+
+```{r}
+library(plotly)
+
+# Assuming ligands is your data frame and it has 'Name', 'Type', and 'Approved' columns
+interactive_plot <- plot_ly(data = Ligands, x = ~Type, y = ~Name, text = ~Approved,
+                            mode = 'markers', color = ~Approved, colors = c('red', 'green')) %>%
+  layout(title = 'Ligands by Type and Approval Status',
+         xaxis = list(title = 'Type of Ligand'),
+         yaxis = list(categoryorder = 'total ascending', title = 'Ligand Name'),  # This will help to spread the y-axis labels
+         hovermode = 'closest')
+
+interactive_plot
+
+library(DT)
+datatable(Ligands[, c("Ligand.ID", "Name", "Species", "Type", "Approved")], 
+          filter = 'top', 
+          options = list(pageLength = 10, scrollX = TRUE))
+
+ 
+```
+
+
+
+```{r}
+ggplot(Ligands, aes(x = Approved)) +
+  geom_bar(fill = "pink") +
+  facet_wrap(~Type, scales = "free_x") +
+  theme_minimal() +
+  labs(title = "Number of Ligands by Type and Approval Status", 
+       x = "Approval Status", 
+       y = "Count of Ligands") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+```
+
+```{r}
+approval_summary <- Ligands %>%
+  count(Approved)
+
+print(approval_summary)
+```
+
+
+
+
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+# Ensure that 'Approved' is a factor with levels that match those in 'approval_summary'
+Ligands$Approved <- factor(Ligands$Approved, levels = c(1, "yes"))
+
+# Rename the 'n' column in 'approval_summary' to something more descriptive
+approval_summary <- approval_summary %>%
+  rename(Count = n)
+
+# Join 'approval_summary' to 'Ligands'
+Ligands <- Ligands %>%
+  left_join(approval_summary, by = "Approved")
+
+# Now we can create a dot plot with the counts
+ggplot(Ligands, aes(x = Type, y = Approved)) +
+  geom_point(aes(size = Count), alpha = 0.5) +
+  theme_minimal() +
+  labs(title = "Distribution of Ligands by Type and Approval Status",
+       x = "Type of Ligand",
+       y = "Approval Status") +
+  scale_size_area(max_size = 20) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position = "none")  # Hide legend if not needed
+
+
+```
+
 
