@@ -29,7 +29,7 @@ Ligands <-read.csv("C:/Users/zalah/OneDrive/Documents/Wflowr.Zee/data/ligands.cs
 ```
 
 
-```{r}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Create a data frame that summarizes ligand names by type, along with the count
 ligands_summary <- Ligands %>%
   group_by(Type) %>%
