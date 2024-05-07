@@ -195,7 +195,7 @@ ggplot(data_for_plot, aes(x = Target, y = Ligand, color = Approved)) +
 
 
 ## Relationship between Ligand and Target by Approval status using Plotly
-For names not to overlapp i removed the names of Ligands and Targets from the X-axis and Y-axis and kept it ike this (if you press on any dot you'll see the name of ligand, target and if approved or not!) That way I can do more than just 25 rows (5000 rows presented here)
+For names not to overlapp i removed the names of Ligands and Targets from the X-axis and Y-axis and kept it like this (if you press on any dot you'll see the name of ligand, target and if approved or not!) That way I can do more than just 25 rows (5000 rows presented here)
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
