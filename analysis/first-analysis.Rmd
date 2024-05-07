@@ -42,9 +42,9 @@ ligands_summary <- Ligands %>%
   group_by(Type) %>%
   summarise(
     Count = n(),  # Count the number of ligands per type
-    Names = paste(Name, collapse = "; ")  # Concatenate all ligand names for each type, separated by semicolon
+    Names = paste(Name, collapse = "; ")  
   ) %>%
-  ungroup()  # Make sure to ungroup the data frame for plotting
+  ungroup()  
 
 # Create the interactive plot using plotly
 interactive_plot <- plot_ly(
@@ -73,7 +73,7 @@ interactive_plot
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-# Assuming Approved is a factor or character indicating approval status
+
 Ligands$Approved <- as.factor(Ligands$Approved)
 
 
@@ -86,12 +86,12 @@ Ligands Classified by Type and Approval Status
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(plotly)
 
-# Assuming ligands is your data frame and it has 'Name', 'Type', and 'Approved' columns
+
 interactive_plot <- plot_ly(data = Ligands, x = ~Type, y = ~Name, text = ~Approved,
                             mode = 'markers', color = ~Approved, colors = c('red', 'green')) %>%
   layout(title = 'Ligands by Type and Approval Status',
          xaxis = list(title = 'Type of Ligand'),
-         yaxis = list(categoryorder = 'total ascending', title = 'Ligand Name'),  # This will help to spread the y-axis labels
+         yaxis = list(categoryorder = 'total ascending', title = 'Ligand Name'),
          hovermode = 'closest')
 interactive_plot
 ```
@@ -179,8 +179,7 @@ data_for_plot <- interactions %>%
   select(Ligand, Target, Approved) %>%
   slice(1:25) %>%
   distinct()
-# Assuming 'Ligand' is numeric and can be used in a boxplot
-# If 'Ligand' is not numeric, you might need a different plot type
+
 ggplot(data_for_plot, aes(x = Target, y = Ligand, color = Approved)) +
   geom_point(position = position_jitter(width = 0.2, height = 0), size = 1) +
   labs(title = "Relationship between Ligand and Target by Approval Status",
@@ -204,8 +203,7 @@ library(ggplot2)
 library(plotly)
 library(dplyr)
 
-# Assuming 'interactions' is your dataframe
-# Select the first 500 rows and the necessary columns: Ligand, Target, and Approved
+
 data_for_plot <- interactions %>%
   select(Ligand, Target, Approved) %>%
   slice(1:5000) %>%
