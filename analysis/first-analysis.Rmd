@@ -1,15 +1,16 @@
 ---
-title: "first-analysis"
+title: "Data-analysis"
 author: "Zeinab Al Ahmad"
 date: "2024-02-27"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
 ---
+## Welcome to the Pharmacological 2024 Data!
+Here I practiced some charts from the 2024 Pharma data since I don't yet have data for myself!
 
-## Introduction
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 #Libraries 
 library(readxl)
 library(tidyverse) 
@@ -18,9 +19,9 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(plotly)
+library(igraph)
 
 ```
-
 
 
 ```{r}
@@ -28,6 +29,12 @@ library(plotly)
 Ligands <-read.csv("C:/Users/zalah/OneDrive/Documents/Wflowr.Zee/data/ligands.csv")
 ```
 
+## 12590 Ligands Classfied by their types 
+Different types of ligands: Antibody, Inorganic, Metabolite, Natural Product, Peptide, and SYnthetic Organic 
+This graph is a bar chart that illustrates the classification of ligands by type.
+The x-axis represents different ligand types, namely "Antibody," "Inorganic," "Metabolite," "Natural product," "Peptide," and "Synthetic organic." 
+The y-axis indicates the count of each ligand type, ranging from 0 to 9000. 
+The bars' height represents the frequency of each ligand type, with "Synthetic organic" being the most common ligand in this dataset.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Create a data frame that summarizes ligand names by type, along with the count
@@ -63,15 +70,20 @@ interactive_plot <- interactive_plot %>%
 interactive_plot
 ```
 
-```{r}
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Assuming Approved is a factor or character indicating approval status
 Ligands$Approved <- as.factor(Ligands$Approved)
 
 
 ```
 
+## Heatmap for Ligands Classification
+Ligands Classified by Type and Approval Status
+(Not all ligand names were shown on the Y-axis but if you use your cursor over the map you'll see all names and if approved or not z=0 not approved/ z=1 approved)
 
-```{r}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(plotly)
 
 # Assuming ligands is your data frame and it has 'Name', 'Type', and 'Approved' columns
@@ -81,8 +93,14 @@ interactive_plot <- plot_ly(data = Ligands, x = ~Type, y = ~Name, text = ~Approv
          xaxis = list(title = 'Type of Ligand'),
          yaxis = list(categoryorder = 'total ascending', title = 'Ligand Name'),  # This will help to spread the y-axis labels
          hovermode = 'closest')
-
 interactive_plot
+```
+
+## Easier way to look?
+Table Below shows 12,590 Ligands' Names, Species, Type, and if Approved or Not
+You can click the search bar and search for any Ligand Name.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 
 library(DT)
 datatable(Ligands[, c("Ligand.ID", "Name", "Species", "Type", "Approved")], 
@@ -92,9 +110,10 @@ datatable(Ligands[, c("Ligand.ID", "Name", "Species", "Type", "Approved")],
  
 ```
 
+## Another Ligands Classification 
+Ligands classified according to Ligands type and approval status 
 
-
-```{r}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 ggplot(Ligands, aes(x = Approved)) +
   geom_bar(fill = "pink") +
   facet_wrap(~Type, scales = "free_x") +
@@ -107,7 +126,7 @@ ggplot(Ligands, aes(x = Approved)) +
 
 ```
 
-```{r}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 approval_summary <- Ligands %>%
   count(Approved)
 
@@ -115,37 +134,110 @@ print(approval_summary)
 ```
 
 
+## These Ligands were then tested on different Targets
 
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Read Interactions data from CSV files (I skipped first row since it is empty)
+interactions <-read.csv("C:/Users/zalah/OneDrive/Documents/Wflowr.Zee/data/interactions.csv", skip = 1)
+# Select the desired columns
+Filtered_interactions <- interactions %>% select(Target, Ligand, Ligand.Type, Approved, Action, Target.Species)
+# Print the first few rows to check the result
+head(Filtered_interactions)
+```
 
-
+## Classification of Ligands by their action
+each drug has a different kind of action on a specific target as shown in the graph below
 
 ```{r}
-library(dplyr)
-library(ggplot2)
+# Group by Action and summarize the count of Ligands
+action_summary <- Filtered_interactions %>%
+  group_by(Action) %>%
+  summarize(Ligand_Count = n()) %>%
+  arrange(desc(Ligand_Count))
 
-# Ensure that 'Approved' is a factor with levels that match those in 'approval_summary'
-Ligands$Approved <- factor(Ligands$Approved, levels = c(1, "yes"))
-
-# Rename the 'n' column in 'approval_summary' to something more descriptive
-approval_summary <- approval_summary %>%
-  rename(Count = n)
-
-# Join 'approval_summary' to 'Ligands'
-Ligands <- Ligands %>%
-  left_join(approval_summary, by = "Approved")
-
-# Now we can create a dot plot with the counts
-ggplot(Ligands, aes(x = Type, y = Approved)) +
-  geom_point(aes(size = Count), alpha = 0.5) +
+# Plot the data using ggplot2
+ggplot(action_summary, aes(x = reorder(Action, -Ligand_Count), y = Ligand_Count)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
   theme_minimal() +
-  labs(title = "Distribution of Ligands by Type and Approval Status",
-       x = "Type of Ligand",
-       y = "Approval Status") +
-  scale_size_area(max_size = 20) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        legend.position = "none")  # Hide legend if not needed
+  labs(title = "Ligands Classification by Action",
+       x = "Action",
+       y = "Count of Ligands") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+
+
+
+
+## Relationship between Ligand and Target by Approval Status
+first 25 rows only
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Select the first 20 rows and the necessary columns: Ligand, Target, and Approved
+data_for_plot <- interactions %>%
+  select(Ligand, Target, Approved) %>%
+  slice(1:25) %>%
+  distinct()
+# Assuming 'Ligand' is numeric and can be used in a boxplot
+# If 'Ligand' is not numeric, you might need a different plot type
+ggplot(data_for_plot, aes(x = Target, y = Ligand, color = Approved)) +
+  geom_point(position = position_jitter(width = 0.2, height = 0), size = 1) +
+  labs(title = "Relationship between Ligand and Target by Approval Status",
+       x = "Target",
+       y = "Ligand") +
+  scale_color_manual(values = c("red", "blue"), labels = c("Not Approved", "Approved")) +
+  theme_minimal() +
+  theme(axis.text.y = element_text(angle = 0, hjust = 0, size = 7),  # Rotate y-axis labels and adjust size
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.title = element_blank())
+
+```
+
+
+## Relationship between Ligand and Target by Approval status using Plotly
+For names not to overlapp i removed the names of Ligans and Targets from the X-axis and Y-axis and kept it ike this (if you press on any dot you'll see the name of ligand, target and if approved or not!) That way I can do more than just 25 rows (5000 rows presented here)
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(plotly)
+library(dplyr)
+
+# Assuming 'interactions' is your dataframe
+# Select the first 500 rows and the necessary columns: Ligand, Target, and Approved
+data_for_plot <- interactions %>%
+  select(Ligand, Target, Approved) %>%
+  slice(1:5000) %>%
+  distinct()
+
+# Create a ggplot
+p <- ggplot(data_for_plot, aes(x = Target, y = Ligand, color = Approved)) +
+  geom_point(position = position_jitter(width = 0.2, height = 0), size = 0.5) +
+  labs(title = "Relationship between Ligand and Target by Approval Status",
+       x = "Target",  # Remove x-axis label
+       y = "Ligand") +  # Remove y-axis label
+  scale_color_manual(values = c("red", "blue"), labels = c("Not Approved", "Approved")) +
+  theme_minimal() +
+  theme(axis.text.x = element_blank(),  # Remove x-axis text
+        axis.text.y = element_blank(),  # Remove y-axis text
+        axis.ticks = element_blank(),  # Remove axis ticks
+        legend.title = element_blank())
+
+# Save the plot
+ggsave("plot.png", plot = p, width = 15, height = 10, units = "in")
+
+# Convert to interactive plot
+ggplotly(p)
 
 
 ```
+
+
+
+
+
+
+
 
 

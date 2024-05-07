@@ -1,10 +1,41 @@
 ---
-title: "About"
-output:
-  workflowr::wflow_html:
+title: "About My Project"
+output: 
+  html_document:
     toc: false
-editor_options:
-  chunk_output_type: console
+    theme: default  
 ---
 
-Describe your project.
+<style>
+body {
+    background-color: #ffe6f2; /* Light pink background */
+    color: #990033; /* Dark pink text */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #cc0066; /* Different shade of pink for headings */
+}
+
+a {
+    color: #cc0066; /* Pink color for links */
+}
+
+/* Additional custom styles can go here */
+</style>
+
+
+## Project Overview
+
+My project explores a 2024 pharmacological dataset featuring ligands that target **3,067 human receptors**, with **1,732** of these having meticulously curated quantitative ligand interactions. The dataset includes **12,590 ligands**, with **9,204** boasting curated quantitative target interactions.
+
+It also encompasses **1,981 approved drugs**, **1,128** of which have well-documented quantitative interactions. Clinical summaries are provided for over **3,704 ligands**, among which **1,971** are approved drugs.
+
+### Key Highlights
+
+- **3,067 human receptors** targeted by ligands
+- **12,590 ligands** available in the dataset
+- **1,981 approved drugs** included
+
+### Further Information
+
+For more information about this dataset and project, please contact the research team or refer to the detailed documentation provided in this link → [Link](License.html)

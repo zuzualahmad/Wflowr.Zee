@@ -18,8 +18,7 @@ setwd("C://Users//zalah//OneDrive//Documents//Wflowr.Zee//analysis//Images")
 library(jpeg)
 
 # Read the image file
-img <- readJPEG("Logo1.jpeg") # You can also use readJPEG() for JPEG files or readTIFF() for TIFF files
-
+img <- readJPEG("Logo1.jpeg") 
 # Display the image
 grid::grid.raster(img)
 ```
@@ -64,11 +63,19 @@ a:hover, a:focus {
 
 ## Welcome to My Research Website
 
-I'm thrilled to have you here! 🌟 This site is a canvas for my journey through the realms of data analysis and the discoveries within my research findings.
+My name is Zeinab Al Ahmad and I'm a first year graduate student at Villanova University. 
+I'm thrilled to have you here! 🌟 This site is a canvas for my journey through the realms of 2024 pharmacological data analysis and findings.
 
-### Ready to Dive In?
+ Ready to Dive In?
+ 
+[Description of the Pharma Data→](about.html)
 
-[Start exploring →](first-analysis.html)
+[Start exploring Pharma Data→](first-analysis.html)
+
+[References→](License.html)
+
+
+
 
 </div>
 

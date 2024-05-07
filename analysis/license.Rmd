@@ -1,21 +1,26 @@
 ---
 title: "License"
-output:
-  workflowr::wflow_html:
+output: 
+  html_document:
     toc: false
-editor_options:
-  chunk_output_type: console
+    theme: default  
 ---
+<style>
+body {
+    background-color: #e0f7fa; /* Light blue background */
+    color: #01579b; /* Dark blue text */
+}
 
-What license are you using for your code? See [choosealicense.com][choose] for
-help deciding. It's a convention to save a file `LICENSE` in the root of your
-Git repo that contains the license text.
+h1, h2, h3, h4, h5, h6 {
+    color: #0288d1; /* Different shade of blue for headings */
+}
 
-What license are you using for the written content on your site? It is
-traditional to choose a [Creative Commons][cc] license for this type of content.
+a {
+    color: #0288d1; /* Blue color for links */
+}
+</style>
 
-[choose]: https://choosealicense.com/
-[cc]: https://creativecommons.org/choose/
+## Reference:
 
-How should others cite your work? It's a convention to save a file `CITATION`
-in the root of your Git repo that contains the citation information.
+Database Release 2024.1. (2024, March 27). *Guidetopharmacology Blog*. [Link](https://blog.guidetopharmacology.org/2024/03/27/database-release-2024-1/)
+
