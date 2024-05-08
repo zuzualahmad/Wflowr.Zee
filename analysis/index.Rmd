@@ -72,7 +72,7 @@ I'm thrilled to have you here! 🌟 This site is a canvas for my journey through
 
 [Start exploring Pharma Data→](first-analysis.html)
 
-[References→](license.Rmd)
+[References→](License.html)
 
 
 
