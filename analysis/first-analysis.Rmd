@@ -1,7 +1,6 @@
 ---
 title: "Data-analysis"
 author: "Zeinab Al Ahmad"
-date: "2024-02-27"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console

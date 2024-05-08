@@ -1,8 +1,7 @@
 ---
 title: "License"
-output: 
-  html_document:
-    toc: false
+output: workflowr::wflow_html
+editor_options:
     theme: default  
 ---
 <style>
